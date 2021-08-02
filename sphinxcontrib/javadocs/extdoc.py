@@ -1,5 +1,6 @@
 #
-# Copyright 2012-2015 Bronto Software, Inc. and contributors
+# Copyright 2012-2021 Bronto Software, Udviklings- og Forenklingsstyrelsen
+#                     and multiple other contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
