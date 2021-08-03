@@ -1,11 +1,11 @@
-======================
-sphinxcontrib-javadocs
-======================
+=====================
+sphinxcontrib-javadoc
+=====================
 
-.. image:: https://travis-ci.org/balderbach/sphinxcontrib-javadocs.svg?branch=master
-    :target: https://travis-ci.org/balderbach/sphinxcontrib-javadocs
+.. image:: https://travis-ci.org/balderbach/sphinxcontrib-javadoc.svg?branch=master
+    :target: https://travis-ci.org/balderbach/sphinxcontrib-javadoc
 
-javadocs/groovydocs API docs for Sphinx, based on sphinxcontrib.javadocs
+javadoc/groovydoc API docs for Sphinx, based on sphinxcontrib.javadoc
 
 Overview
 --------
@@ -15,5 +15,5 @@ Add a longer description here.
 Links
 -----
 
-- Source: https://github.com/balderbach/sphinxcontrib-javadocs
-- Bugs: https://github.com/balderbach/sphinxcontrib-javadocs/issues
+- Source: https://github.com/balderbach/sphinxcontrib-javadoc
+- Bugs: https://github.com/balderbach/sphinxcontrib-javadoc/issues

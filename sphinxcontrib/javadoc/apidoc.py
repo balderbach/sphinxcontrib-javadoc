@@ -28,8 +28,8 @@ from optparse import OptionParser
 
 import javalang
 
-import sphinxcontrib.javadocs.compiler as compiler
-import sphinxcontrib.javadocs.util as util
+import sphinxcontrib.javadoc.compiler as compiler
+import sphinxcontrib.javadoc.util as util
 
 
 def encode_output(s):

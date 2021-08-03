@@ -14,9 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import re
-import string
-
 import javalang
 from docutils import nodes
 from docutils.parsers.rst import Directive
@@ -27,16 +24,17 @@ from sphinx.directives import ObjectDescription
 from sphinx.domains import Domain
 from sphinx.domains import ObjType
 from sphinx.locale import _
-from sphinx.locale import l_
+from sphinx.locale import _ as l_
 from sphinx.roles import XRefRole
 from sphinx.util.docfields import Field
 from sphinx.util.docfields import GroupedField
 from sphinx.util.docfields import TypedField
 from sphinx.util.nodes import make_refnode
 
-import sphinxcontrib.javadocs.extdoc as extdoc
-import sphinxcontrib.javadocs.formatter as formatter
-import sphinxcontrib.javadocs.util as util
+import sphinxcontrib.javadoc.extdoc as extdoc
+import sphinxcontrib.javadoc.formatter as formatter
+
+# This is tech debt, but leaving it for now: l_ used to be lazy translation
 
 # Classes in java.lang. These are available without an import.
 java_dot_lang = set(
@@ -644,7 +642,7 @@ class JavaDomain(Domain):
     def clear_doc(self, docname):
         objects = dict(self.data["objects"])
 
-        for fullname, (fn, _, _) in objects.items():
+        for fullname, (fn, __, __) in objects.items():
             if fn == docname:
                 del self.data["objects"][fullname]
 
@@ -655,9 +653,10 @@ class JavaDomain(Domain):
         type_context = node.get("java:outertype")
 
         # Partial function to make building the response easier
-        make_ref = lambda fullname: make_refnode(
-            builder, fromdocname, objects[fullname][0], fullname, contnode, fullname
-        )
+        def make_ref(fullname):
+            make_refnode(
+                builder, fromdocname, objects[fullname][0], fullname, contnode, fullname
+            )
 
         # Check for fully qualified references
         if target in objects:
@@ -680,7 +679,7 @@ class JavaDomain(Domain):
         basename_match = None
         basename_suffix = suffix.partition("(")[0]
 
-        for fullname, (_, _, basename) in objects.items():
+        for fullname, (__, __, basename) in objects.items():
             if fullname.endswith(suffix):
                 return make_ref(fullname)
             elif basename.endswith(basename_suffix):
@@ -708,8 +707,8 @@ class JavaDomain(Domain):
             return None
 
     def get_objects(self):
-        for refname, (docname, type, _) in self.data["objects"].items():
-            yield (refname, refname, type, docname, refname, 1)
+        for refname, (docname, _type, __) in self.data["objects"].items():
+            yield (refname, refname, _type, docname, refname, 1)
 
 
 def _create_indexnode(indextext, fullname):

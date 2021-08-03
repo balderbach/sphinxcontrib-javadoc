@@ -14,11 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from __future__ import unicode_literals
-
 import collections
 import re
-from builtins import str
 from xml.sax.saxutils import escape as html_escape
 
 from bs4 import BeautifulSoup
@@ -46,10 +43,10 @@ class Converter(object):
     # ---- reST Utility Methods ----
 
     def _unicode(self, s):
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             return s
         else:
-            return unicode(s, "utf8")
+            return str(s, "utf8")
 
     def _separate(self, s):
         return "\n\n" + s + "\n\n"
@@ -93,8 +90,8 @@ class Converter(object):
         return self._separate("..") + self._separate("\n".join(items))
 
     def _left_justify(self, s, indent=0):
-        lines = [l.rstrip() for l in s.split("\n")]
-        indents = [len(l) - len(l.lstrip()) for l in lines if l]
+        lines = [line.rstrip() for line in s.split("\n")]
+        indents = [len(line) - len(line.lstrip()) for line in lines if line]
 
         if not indents:
             return s
@@ -102,10 +99,10 @@ class Converter(object):
         shift = indent - min(indents)
 
         if shift < 0:
-            return "\n".join(l[-shift:] for l in lines)
+            return "\n".join(line[-shift:] for line in lines)
         else:
             prefix = " " * shift
-            return "\n".join(prefix + l for l in lines)
+            return "\n".join(prefix + line for line in lines)
 
     def _compress_whitespace(self, s, replace=" ", newlines=True):
         if newlines:
@@ -156,8 +153,6 @@ class Converter(object):
 
         table_num_columns = max(sum(c.colspan for c in row) for row in rows)
 
-        normalized = []
-
         for row in rows:
             row_num_columns = sum(c.colspan for c in row)
 
@@ -172,7 +167,7 @@ class Converter(object):
             j = 0
             for cell in row:
                 current_w = sum(col_widths[j : j + cell.colspan])
-                required_w = max(len(l) for l in cell.contents.split("\n"))
+                required_w = max(len(line) for line in cell.contents.split("\n"))
 
                 if required_w > current_w:
                     additional = required_w - current_w
@@ -190,8 +185,8 @@ class Converter(object):
 
                 j += cell.colspan
 
-        row_sep = "+" + "+".join("-" * (l + 2) for l in col_widths) + "+"
-        header_sep = "+" + "+".join("=" * (l + 2) for l in col_widths) + "+"
+        row_sep = "+" + "+".join("-" * (line + 2) for line in col_widths) + "+"
+        header_sep = "+" + "+".join("=" * (line + 2) for line in col_widths) + "+"
         lines = [row_sep]
 
         for i, row in enumerate(rows):
@@ -200,7 +195,7 @@ class Converter(object):
                 j = 0
                 for c in row:
                     w = sum(n + 3 for n in col_widths[j : j + c.colspan]) - 2
-                    h = row_heights[i]
+                    # h = row_heights[i]
 
                     line.append("| ")
                     cell_lines = c.contents.split("\n")
@@ -382,7 +377,9 @@ class Converter(object):
         return self._preprocess_entity.sub(r"&\1;\2", s)
 
     def _preprocess(self, s_html):
-        to_tag = lambda t: lambda m: "<%s>%s</%s>" % (t, html_escape(m), t)
+        def to_tag(t):
+            return lambda m: "<%s>%s</%s>" % (t, html_escape(m), t)
+
         s_html = self._preprocess_inline_javadoc_replace("code", to_tag("code"), s_html)
         s_html = self._preprocess_inline_javadoc_replace(
             "literal", to_tag("span"), s_html

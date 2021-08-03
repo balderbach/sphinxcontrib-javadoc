@@ -1,5 +1,5 @@
 """
-    pytest config for sphinxcontrib/javadocs/tests
+    pytest config for sphinxcontrib/javadoc/tests
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :copyright: Copyright 2017 by Balder Bach <balder.bach@ufst.dk>

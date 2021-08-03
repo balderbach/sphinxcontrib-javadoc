@@ -16,9 +16,9 @@
 #
 import javalang
 
-import sphinxcontrib.javadocs.formatter as formatter
-import sphinxcontrib.javadocs.htmlrst as htmlrst
-import sphinxcontrib.javadocs.util as util
+import sphinxcontrib.javadoc.formatter as formatter
+import sphinxcontrib.javadoc.htmlrst as htmlrst
+import sphinxcontrib.javadoc.util as util
 
 
 class JavadocRestCompiler(object):
