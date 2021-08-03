@@ -15,9 +15,10 @@
 # limitations under the License.
 #
 import javalang
-import javasphinx.formatter as formatter
-import javasphinx.htmlrst as htmlrst
-import javasphinx.util as util
+
+import sphinxcontrib.javadocs.formatter as formatter
+import sphinxcontrib.javadocs.htmlrst as htmlrst
+import sphinxcontrib.javadocs.util as util
 
 
 class JavadocRestCompiler(object):

@@ -18,9 +18,6 @@ import re
 import string
 
 import javalang
-import javasphinx.extdoc as extdoc
-import javasphinx.formatter as formatter
-import javasphinx.util as util
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst import directives
@@ -36,6 +33,10 @@ from sphinx.util.docfields import Field
 from sphinx.util.docfields import GroupedField
 from sphinx.util.docfields import TypedField
 from sphinx.util.nodes import make_refnode
+
+import sphinxcontrib.javadocs.extdoc as extdoc
+import sphinxcontrib.javadocs.formatter as formatter
+import sphinxcontrib.javadocs.util as util
 
 # Classes in java.lang. These are available without an import.
 java_dot_lang = set(
