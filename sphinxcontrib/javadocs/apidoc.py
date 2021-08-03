@@ -14,18 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from __future__ import print_function
-from __future__ import unicode_literals
-
 try:
     import cPickle as pickle
-except:
+except ImportError:
     import pickle
 
 import hashlib
 import logging
 import sys
-import os
 import os.path
 
 from optparse import OptionParser
