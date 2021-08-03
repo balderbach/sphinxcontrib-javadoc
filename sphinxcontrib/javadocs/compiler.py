@@ -25,17 +25,17 @@ class JavadocRestCompiler(object):
     """Javadoc to ReST compiler. Builds ReST documentation from a Java syntax
     tree."""
 
-    def __init__(self, filter=None, member_headers=True, parser="lxml"):
-        if filter:
-            self.filter = filter
+    def __init__(self, filter_callable=None, member_headers=True, parser="lxml"):
+        if filter_callable:
+            self.filter_callable = filter_callable
         else:
-            self.filter = self.__default_filter
+            self.filter_callable = self.__default_filter_callable
 
         self.converter = htmlrst.Converter(parser)
 
         self.member_headers = member_headers
 
-    def __default_filter(self, node):
+    def __default_filter_callable(self, node):
         """Excludes private members and those tagged "@hide" / "@exclude" in their
         docblocks.
 
@@ -265,7 +265,7 @@ class JavadocRestCompiler(object):
                 c.add_option("outertype", name)
                 document.add_object(c)
 
-        fields = list(filter(self.filter, declaration.fields))
+        fields = list(filter(self.filter_callable, declaration.fields))
         if fields:
             document.add_heading("Fields", "-")
             fields.sort(key=lambda f: f.declarators[0].name)
@@ -276,7 +276,7 @@ class JavadocRestCompiler(object):
                 f.add_option("outertype", name)
                 document.add_object(f)
 
-        constructors = list(filter(self.filter, declaration.constructors))
+        constructors = list(filter(self.filter_callable, declaration.constructors))
         if constructors:
             document.add_heading("Constructors", "-")
             constructors.sort(key=lambda c: c.name)
@@ -287,7 +287,7 @@ class JavadocRestCompiler(object):
                 c.add_option("outertype", name)
                 document.add_object(c)
 
-        methods = list(filter(self.filter, declaration.methods))
+        methods = list(filter(self.filter_callable, declaration.methods))
         if methods:
             document.add_heading("Methods", "-")
             methods.sort(key=lambda m: m.name)
@@ -337,7 +337,7 @@ class JavadocRestCompiler(object):
         package = ast.package.name
         type_declarations = []
         for path, node in ast.filter(javalang.tree.TypeDeclaration):
-            if not self.filter(node):
+            if not self.filter_callable(node):
                 continue
 
             classes = [

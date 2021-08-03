@@ -18,6 +18,9 @@ from .domain import JavaDomain
 from .extdoc import javadoc_role
 
 
+__version__ = "1.0b1"
+
+
 def setup(app):
     app.add_domain(JavaDomain)
 
