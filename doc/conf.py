@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-project = 'javasphinx'
-version = '0.9.15'
+project = "javasphinx"
+version = "0.9.15"
 release = version
 
-extensions = ['javasphinx']
+extensions = ["javasphinx"]
 
-master_doc = 'index'
-copyright = u'2012-2017, Bronto Software Inc. and contributors'
-primary_domain = 'rst'
+master_doc = "index"
+copyright = u"2012-2017, Bronto Software Inc. and contributors"
+primary_domain = "rst"
